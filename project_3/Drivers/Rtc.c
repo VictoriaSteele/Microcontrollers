@@ -128,7 +128,7 @@ void Rtc_Update(uint32_t timeData)
       ;
 }
 
-void SetRtcInterruptCallback(void (*callback)(uint32_t))
+void Rtc_SetInterruptCallback(void (*callback)(uint32_t))
 {
    UpdateTimeCallback = callback;
 }

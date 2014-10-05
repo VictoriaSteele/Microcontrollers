@@ -20,7 +20,7 @@ static void CB_Timer(void);
 
 uint16_t ad_value[16];
 
-void Initialize_Timer_ADC(void)
+void AdcTimer_Init(void)
 {
    StartTimer();
    StartADC();

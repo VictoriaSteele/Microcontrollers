@@ -12,23 +12,27 @@
 #include <stdbool.h>
 #include <stdint.h>
 
-extern volatile bool gSwitchStandbyReady;
+/*!
+ * Initialize Switch
+ */
+void Switch_Init(void);
 
-/* Switch flag global variable. Switch status bits:
-		b7 : Switch 1 press complete flag*
-		b6 : Switch 2 press complete flag*
-		b5 : Switch 3 press complete flag*
-		b4 : Unused
-		b3 : Switch 1 held-down status flag
-		b2 : Switch 2 held-down status flag
-		b1 : Switch 3 held-down status flag
-		b0 : Unused	
-		 * Switch press complete flags must be cleared manually     */
-extern volatile uint8_t switchFlag;
+/*!
+ * Turn on and off switch interrupts
+ * @param bool State to turn switch interrupts to
+ */
+void Switch_ControlInterrupts(bool);
 
-void InitialiseSwitchInterrupts(void);
-void ControlSwitchInterrupts(bool);
-void SetSwitchPressCallback(void(*callBack)(uint8_t));
-void SetSwitchReleaseCallback(void(*callBack)(uint8_t));
+/*!
+ * Set the method to be called when the switch is pressed
+ * @param callBack The method to be called when the switch is released
+ */
+void Switch_SetPressCallback(void(*callBack)(uint8_t));
+
+/*!
+ * Set the method to be called when the switch is released
+ * @param callBack The method to be called when the switch is released
+ */
+void Switch_SetReleaseCallback(void(*callBack)(uint8_t));
 
 #endif

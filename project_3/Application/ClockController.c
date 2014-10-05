@@ -103,7 +103,7 @@ static void Switch_Update(uint8_t mask)
    Rtc_Start();
 }
 
-void ClockController_Init(void)
+void ClockController_Init()
 {
    Lcd_Init();
    Lcd_Display(LCD_LINE1_START_POS, " CLOCK ");
@@ -112,7 +112,7 @@ void ClockController_Init(void)
    SwitchSlewController_Init();
    SwitchSlewController_SetUpdateCallback(Switch_Update);
 
-   SetRtcInterruptCallback(Clock_DisplayUpdate);
+   Rtc_SetInterruptCallback(Clock_DisplayUpdate);
    Rtc_Start();
 }
 

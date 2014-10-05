@@ -15,8 +15,6 @@
 #define SWITCH_2    0x02  // Switch 2 pressed flag mask
 #define SWITCH_3    0x04  // Switch 3 pressed flag mask
 
-volatile uint8_t switchFlag = 0x00;
-volatile bool gSwitchStandbyReady = true;
 void (*SwitchPressCallbackFunc)(uint8_t) = NULL;
 void (*SwitchReleaseCallbackFunc)(uint8_t) = NULL;
 
@@ -221,7 +219,7 @@ void SW3_InterruptCB(void)
       ;
 }
 
-void InitialiseSwitchInterrupts(void)
+void Switch_Init(void)
 {
    bool err = true;
 
@@ -263,7 +261,7 @@ void InitialiseSwitchInterrupts(void)
       ;
 }
 
-void ControlSwitchInterrupts(bool control)
+void Switch_ControlInterrupts(bool control)
 {
    bool err = true;
 
@@ -318,12 +316,12 @@ void ControlSwitchInterrupts(bool control)
       ;
 }
 
-void SetSwitchPressCallback(void (*callback)(uint8_t))
+void Switch_SetPressCallback(void (*callback)(uint8_t))
 {
    SwitchPressCallbackFunc = callback;
 }
 
-void SetSwitchReleaseCallback(void (*callback)(uint8_t))
+void Switch_SetReleaseCallback(void (*callback)(uint8_t))
 {
    SwitchReleaseCallbackFunc = callback;
 }

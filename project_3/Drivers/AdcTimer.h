@@ -9,6 +9,9 @@
 #ifndef TIMERADC_H
 #define TIMERADC_H
 
-void Initialize_Timer_ADC(void);
+/*!
+ * Initialize the Timer Adc Module
+ */
+void AdcTimer_Init(void);
 
 #endif

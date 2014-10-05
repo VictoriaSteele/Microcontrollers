@@ -101,7 +101,7 @@ void SwitchSlewController_SetUpdateCallback(void (*callback)(uint8_t))
 
 void SwitchSlewController_Init()
 {
-   SetSwitchPressCallback(SwitchPressedCallback);
-   SetSwitchReleaseCallback(SwitchReleasedCallback);
+   Switch_SetPressCallback(SwitchPressedCallback);
+   Switch_SetReleaseCallback(SwitchReleasedCallback);
    InitializePeriodicKeyCheck();
 }

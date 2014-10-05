@@ -136,6 +136,6 @@ void HardwareSetup(void)
 {
    ConfigureOperatingFrequency();
    ConfigureOutputPorts();
-   InitialiseSwitchInterrupts();
+   Switch_Init();
    Rtc_Init();
 }
