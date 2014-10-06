@@ -91,7 +91,6 @@ void Rtc_Read(uint32_t *timeData)
    bool err = true;
    uint8_t rtcStatus = 0x0;
 
-   // Read the time and status flags
    err &= R_RTC_Read
       (
          PDL_RTC_READ_CURRENT,
@@ -100,7 +99,6 @@ void Rtc_Read(uint32_t *timeData)
          PDL_NO_PTR
          );
 
-   // Skip processing the day of the week
    *timeData &= 0x00FFFFFF;
    while(!err)
       ;
