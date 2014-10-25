@@ -20,7 +20,6 @@ static uint8_t keyHoldTime[3] =
    { 0 };
 
 void (*SwitchUpdateCallback)(uint8_t) = NULL;
-void (*SwitchAnyInitialPressCallback)(void) = NULL;
 
 static void SwitchPressedCallback(uint8_t switchIdMask)
 {
@@ -29,11 +28,6 @@ static void SwitchPressedCallback(uint8_t switchIdMask)
    if(SwitchUpdateCallback)
    {
       SwitchUpdateCallback(switchIdMask);
-   }
-
-   if(SwitchAnyInitialPressCallback)
-   {
-      SwitchAnyInitialPressCallback();
    }
 }
 
@@ -78,7 +72,7 @@ static void CheckPressedKeys()
       }
    }
 
-   if(SwitchUpdateCallback)
+   if(SwitchUpdateCallback && (switchIdMask))
    {
       SwitchUpdateCallback(switchIdMask);
    }
@@ -104,11 +98,6 @@ static void InitializePeriodicKeyCheck()
 void SwitchSlewController_SetUpdateCallback(void (*callback)(uint8_t))
 {
    SwitchUpdateCallback = callback;
-}
-
-void SwitchSlewController_SetInitialPressCallback(void (*callback)(void))
-{
-   SwitchAnyInitialPressCallback = callback;
 }
 
 void SwitchSlewController_Init()
