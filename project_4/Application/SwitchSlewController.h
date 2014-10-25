@@ -19,4 +19,9 @@ void SwitchSlewController_Init(void);
  */
 void SwitchSlewController_SetUpdateCallback(void (*callback)(uint8_t));
 
+/*!
+ * Set the callback method for the initial press of any key
+ */
+void SwitchSlewController_SetInitialPressCallback(void (*callback)(void));
+
 #endif

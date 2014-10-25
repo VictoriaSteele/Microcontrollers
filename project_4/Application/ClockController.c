@@ -104,6 +104,11 @@ static void Switch_Update(uint8_t mask)
    Rtc_Start();
 }
 
+static void Switch_AnyInitialPress(void)
+{
+   Wdt_Kick();
+}
+
 void ClockController_Init()
 {
    Lcd_Init();
@@ -112,6 +117,7 @@ void ClockController_Init()
 
    SwitchSlewController_Init();
    SwitchSlewController_SetUpdateCallback(Switch_Update);
+   SwitchSlewController_SetInitialPressCallback(Switch_AnyInitialPress);
 
    Rtc_SetInterruptCallback(Clock_DisplayUpdate);
    Rtc_Start();

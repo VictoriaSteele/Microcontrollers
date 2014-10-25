@@ -31,8 +31,8 @@ void Wdt_Init(void)
 
    bool err = true;
 
-   // Configure the WDT unit to timeout after 2.68 Sec, and reset
-   // when the WDT overflows
+   // Configure the WDT unit to timeout after 2.68 Sec, and call the
+   // callback function CB_WDTOverflow when the WDT overflows -
    // Watchdog period calculation -
    // Period = (8192 x 8192)/25 MHz = 2.68 Sec
    err &= R_WDT_Set

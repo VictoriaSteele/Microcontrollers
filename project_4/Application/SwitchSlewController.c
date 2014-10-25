@@ -11,6 +11,7 @@
 #include "Switch.h"
 
 #define SLEW_HOLD_TIME (4)
+#define NO_KEYS_PRESSED (0x00)
 
 #define NUM_ELEMENTS(X)  (sizeof(X)/sizeof(*(X)))
 
@@ -19,6 +20,7 @@ static uint8_t keyHoldTime[3] =
    { 0 };
 
 void (*SwitchUpdateCallback)(uint8_t) = NULL;
+void (*SwitchAnyInitialPressCallback)(void) = NULL;
 
 static void SwitchPressedCallback(uint8_t switchIdMask)
 {
@@ -27,6 +29,11 @@ static void SwitchPressedCallback(uint8_t switchIdMask)
    if(SwitchUpdateCallback)
    {
       SwitchUpdateCallback(switchIdMask);
+   }
+
+   if(SwitchAnyInitialPressCallback)
+   {
+      SwitchAnyInitialPressCallback();
    }
 }
 
@@ -97,6 +104,11 @@ static void InitializePeriodicKeyCheck()
 void SwitchSlewController_SetUpdateCallback(void (*callback)(uint8_t))
 {
    SwitchUpdateCallback = callback;
+}
+
+void SwitchSlewController_SetInitialPressCallback(void (*callback)(void))
+{
+   SwitchAnyInitialPressCallback = callback;
 }
 
 void SwitchSlewController_Init()
