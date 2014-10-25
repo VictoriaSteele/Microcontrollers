@@ -8,6 +8,7 @@
 #include "Lcd.h"
 #include "Rtc.h"
 #include "SwitchSlewController.h"
+#include "Wdt.h"
 
 #define SECONDS_MASK (0x000000FF)
 #define MINUTES_MASK (0x0000FF00)
@@ -114,5 +115,7 @@ void ClockController_Init()
 
    Rtc_SetInterruptCallback(Clock_DisplayUpdate);
    Rtc_Start();
+
+   Wdt_Kick();
 }
 

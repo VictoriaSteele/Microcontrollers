@@ -9,5 +9,6 @@
 #define WDT_H
 
 void Wdt_Init(void);
+void Wdt_Kick(void);
 
 #endif
