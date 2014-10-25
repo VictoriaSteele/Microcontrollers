@@ -13,6 +13,7 @@
 #include "hwsetup.h"
 #include "Switch.h"
 #include "Rtc.h"
+#include "Wdt.h"
 
 void ConfigureOperatingFrequency(void)
 {
@@ -138,4 +139,5 @@ void HardwareSetup(void)
    ConfigureOutputPorts();
    Switch_Init();
    Rtc_Init();
+   Wdt_Init();
 }
