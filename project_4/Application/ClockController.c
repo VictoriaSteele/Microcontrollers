@@ -9,6 +9,7 @@
 #include "Rtc.h"
 #include "SwitchSlewController.h"
 #include "Wdt.h"
+#include "Reset_Watcher.h"
 
 #define SECONDS_MASK (0x000000FF)
 #define MINUTES_MASK (0x0000FF00)
@@ -109,7 +110,8 @@ static void Switch_Update(uint8_t mask)
 void ClockController_Init()
 {
    Lcd_Init();
-   Lcd_Display(LCD_LINE1_START_POS, " CLOCK ");
+//   Lcd_Display(LCD_LINE1_START_POS, " CLOCK ");
+   Lcd_Display(LCD_LINE1_START_POS, Reset_Watcher_GetConditions());
    Clock_DisplayUpdate(INITIAL_DISPLAY_TIME);
 
    SwitchSlewController_Init();
