@@ -8,6 +8,6 @@
 #ifndef RESET_WATCHER_H
 #define RESET_WATCHER_H
 
-char *Reset_Watcher_GetConditions(void);
+char *ResetWatcher_ResetFromWatchdog(void);
 
 #endif

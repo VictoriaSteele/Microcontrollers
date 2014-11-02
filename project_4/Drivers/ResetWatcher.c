@@ -6,18 +6,19 @@
  */
 
 #include <stdint.h>
+#include <stdbool.h>
 #include "iodefine_RPDL.h"
 
 #define WATCHDOG_RESET (0x02)
 
-char *Reset_Watcher_GetConditions(void)
+bool *ResetWatcher_ResetFromWatchdog(void)
 {
    uint8_t resetStatus = SYSTEM.RSTSR2.BYTE;
 
    if(WATCHDOG_RESET == resetStatus)
    {
-      return " dog XX ";
+      return true;
    }
 
-   return "powerup";
+   return false;
 }

@@ -5,11 +5,12 @@
  * Copyright (c) 2014 - General Electric - All rights reserved.
  */
 
+#include <string.h>
 #include "Lcd.h"
 #include "Rtc.h"
 #include "SwitchSlewController.h"
 #include "Wdt.h"
-#include "Reset_Watcher.h"
+#include "ResetWatcher.h"
 
 #define SECONDS_MASK (0x000000FF)
 #define MINUTES_MASK (0x0000FF00)
@@ -107,11 +108,41 @@ static void Switch_Update(uint8_t mask)
    Rtc_Start();
 }
 
+static void SetResetConditions()
+{
+   uint32_t *resetCount = (uint32_t *)0x00004000;
+
+   if(ResetWatcher_ResetFromWatchdog())
+   {
+      char displayLine[20] = " dog ";
+      char stringBuffer[6] = "00";
+      uint8_t digitIndex = 2;
+      uint32_t resetToDisplay = *resetCount;
+
+      (*resetCount)++;
+
+      resetToDisplay = ConvertDecimalToBCD(resetToDisplay);
+
+      while(digitIndex--)
+      {
+         stringBuffer[digitIndex] = ConvertNumberToBCDChar(resetToDisplay);
+         resetToDisplay >>= BITS_PER_BCD_DIGIT;
+      }
+
+      strncat(displayLine, stringBuffer, 5);
+      Lcd_Display(LCD_LINE1_START_POS, (uint8_t *)displayLine);
+   }
+   else
+   {
+      *resetCount = 0;
+      Lcd_Display(LCD_LINE1_START_POS, " powerup");
+   }
+}
+
 void ClockController_Init()
 {
    Lcd_Init();
-//   Lcd_Display(LCD_LINE1_START_POS, " CLOCK ");
-   Lcd_Display(LCD_LINE1_START_POS, Reset_Watcher_GetConditions());
+   SetResetConditions();
    Clock_DisplayUpdate(INITIAL_DISPLAY_TIME);
 
    SwitchSlewController_Init();
