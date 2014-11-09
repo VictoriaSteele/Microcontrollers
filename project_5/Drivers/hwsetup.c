@@ -138,6 +138,4 @@ void HardwareSetup(void)
    ConfigureOperatingFrequency();
    ConfigureOutputPorts();
    Switch_Init();
-   Rtc_Init();
-   Wdt_Init();
 }

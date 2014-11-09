@@ -10,7 +10,7 @@
 #include "r_pdl_definitions.h"
 #include "Switch.h"
 
-static uint8_t AVAILABLE_SWITCH_OPTIONS = 7;
+static uint8_t AVAILABLE_SWITCH_OPTIONS = 0x08;
 
 static void (*SwitchUpdateCallback)(uint8_t) = NULL;
 
@@ -20,12 +20,12 @@ static void SwitchPressedCallback(uint8_t switchIdMask)
    {
       static uint8_t switchPressCount = 0;
 
-      switchPressCount = (switchPressCount + 1) % AVAILABLE_SWITCH_OPTIONS;
-
       if(SwitchUpdateCallback)
       {
          SwitchUpdateCallback(switchPressCount);
       }
+
+      switchPressCount = (uint8_t)((switchPressCount + 1) % AVAILABLE_SWITCH_OPTIONS);
    }
 }
 
