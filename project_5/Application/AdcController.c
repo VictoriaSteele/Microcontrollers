@@ -31,7 +31,7 @@ static uint16_t AverageOfValues()
       sum += readValues[index];
    }
 
-   return (uint16_t)(sum/10000);
+   return (uint16_t)(sum / 10000);
 }
 
 void FindSquareOfDifferenceX10(uint32_t avg)
@@ -41,7 +41,7 @@ void FindSquareOfDifferenceX10(uint32_t avg)
    for(index = 0; index < 10000; index++)
    {
       readValues[index] =
-         ((readValues[index]*10 - avg*10)*(readValues[index]*10 - avg*10));
+         ((readValues[index] * 10 - avg * 10) * (readValues[index] * 10 - avg * 10));
    }
 }
 
@@ -49,7 +49,6 @@ static uint16_t FindMaxOfArray()
 {
    uint16_t max = readValues[0];
    uint32_t index;
-
 
    for(index = 1; index < 10000; index++)
    {
@@ -66,7 +65,6 @@ static uint16_t FindMinOfArray()
 {
    uint16_t min = readValues[0];
    uint32_t index;
-
 
    for(index = 1; index < 10000; index++)
    {
@@ -108,5 +106,3 @@ void Adc_ReadMnmx(Adc_MinMax_t *minMaxRead)
    minMaxRead->max = FindMaxOfArray();
    minMaxRead->min = FindMinOfArray();
 }
-
-

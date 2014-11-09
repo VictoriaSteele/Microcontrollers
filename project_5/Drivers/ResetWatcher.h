@@ -8,6 +8,10 @@
 #ifndef RESET_WATCHER_H
 #define RESET_WATCHER_H
 
+/*!
+ * Retrieve the last reset condition
+ * @return The last reset condition
+ */
 char *ResetWatcher_ResetFromWatchdog(void);
 
 #endif

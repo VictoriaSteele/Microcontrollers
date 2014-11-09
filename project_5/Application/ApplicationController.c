@@ -1,5 +1,10 @@
-#ifndef ADCCONTROLLER_C_
-#define ADCCONTROLLER_C_
+/*!
+ * @file
+ * @brief The application controller
+ *
+ * Copyright (c) 2014 - General Electric - All rights reserved.
+ */
+
 
 #include <string.h>
 #include <stdbool.h>
@@ -44,13 +49,13 @@ static void RunAdcTask()
    AdcTask();
 }
 
-void DisplayInitialMessage()
+static void DisplayInitialMessage()
 {
    Lcd_Display(LCD_LINE1_START_POS, "  Adc ");
    Lcd_Display(LCD_LINE2_START_POS, "press sw");
 }
 
-void DisplayAdcCurrent()
+static void DisplayAdcCurrent()
 {
    uint16_t read = Adc_ReadCurrent();
    uint8_t lcdBuffer[8] = "0xXYZ\0";
@@ -60,7 +65,7 @@ void DisplayAdcCurrent()
    Lcd_Display(LCD_LINE1_START_POS, "1: A/D ");
 }
 
-void DisplayAdcVref()
+static void DisplayAdcVref()
 {
    uint16_t read;
    uint8_t lcdBuffer[8] = "0xXYZ\0";
@@ -71,7 +76,7 @@ void DisplayAdcVref()
    Lcd_Display(LCD_LINE1_START_POS, "2: VREF ");
 }
 
-void DisplayAdcVref0()
+static void DisplayAdcVref0()
 {
    uint16_t read;
    uint8_t lcdBuffer[8] = "0xXYZ\0";
@@ -82,7 +87,7 @@ void DisplayAdcVref0()
    Lcd_Display(LCD_LINE1_START_POS, "3: VREF0");
 }
 
-void DisplayAdcAvg()
+static void DisplayAdcAvg()
 {
    uint16_t read = Adc_ReadAvg();
    uint8_t lcdBuffer[8] = "0xXYZ\0";
@@ -92,7 +97,7 @@ void DisplayAdcAvg()
    Lcd_Display(LCD_LINE1_START_POS, "4: AVG");
 }
 
-void DisplayAdcStdf()
+static void DisplayAdcStdf()
 {
    uint16_t read = Adc_ReadStd();
    uint8_t lcdBuffer[8] = "0xXYZ\0";
@@ -102,7 +107,7 @@ void DisplayAdcStdf()
    Lcd_Display(LCD_LINE1_START_POS, "5: STDF ");
 }
 
-void DisplayAdcStds()
+static void DisplayAdcStds()
 {
    uint16_t read = Adc_ReadStd();
    uint8_t lcdBuffer[8] = "0xXYZ\0";
@@ -113,7 +118,7 @@ void DisplayAdcStds()
 
 }
 
-void DisplayAdcMnmxf()
+static void DisplayAdcMnmxf()
 {
    Adc_MinMax_t read;
    uint8_t min[4];
@@ -129,7 +134,7 @@ void DisplayAdcMnmxf()
    Lcd_Display(LCD_LINE1_START_POS, "7: MNMXF ");
 }
 
-void DisplayAdcMnmxs()
+static void DisplayAdcMnmxs()
 {
    Adc_MinMax_t read;
    uint8_t min[4];
@@ -215,5 +220,3 @@ void ApplicationController_Init(void)
    AdcTask = DisplayInitialMessage;
    Adc_Init();
 }
-
-#endif

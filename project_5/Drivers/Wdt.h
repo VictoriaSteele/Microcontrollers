@@ -8,7 +8,14 @@
 #ifndef WDT_H
 #define WDT_H
 
+/*!
+ * Initialize the watchdog
+ */
 void Wdt_Init(void);
+
+/*!
+ * Update the watchdog
+ */
 void Wdt_Kick(void);
 
 #endif
