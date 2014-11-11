@@ -32,7 +32,20 @@ uint16_t Adc_Read(void)
 
 uint16_t Adc_ReadVref(void)
 {
-  return S12AD.ADRD.BIT.RIGHT.AD;
+   uint16_t read = 0;
+   bool err = true;
+
+   err &= R_ADC_12_Read
+      (
+         0,
+         PDL_NO_PTR,
+         &read
+         );
+
+   while(!err)
+      ;
+
+   return (read & 0x0FFF);
 }
 
 void Adc_ConfigureContinuous(void)
