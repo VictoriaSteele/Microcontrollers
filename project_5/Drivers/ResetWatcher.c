@@ -11,7 +11,7 @@
 
 #define WATCHDOG_RESET (0x02)
 
-bool *ResetWatcher_ResetFromWatchdog(void)
+bool ResetWatcher_ResetFromWatchdog(void)
 {
    uint8_t resetStatus = SYSTEM.RSTSR2.BYTE;
 

@@ -10,5 +10,6 @@
 void main(void)
 {
    ApplicationController_Init();
-   while(1);
+   while(1)
+      ;
 }

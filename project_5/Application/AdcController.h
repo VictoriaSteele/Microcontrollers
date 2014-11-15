@@ -12,7 +12,7 @@ typedef struct
 {
    uint16_t min;
    uint16_t max;
-}Adc_MinMax_t;
+} Adc_MinMax_t;
 
 /*!
  * Function to read the current adc value
