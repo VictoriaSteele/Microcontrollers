@@ -8,6 +8,9 @@
 #ifndef APPLICATIONCONTROLLER_H
 #define APPLICATIONCONTROLLER_H
 
+/*!
+ * Initialize the application controller
+ */
 void ApplicationController_Init(void);
 
 #endif
