@@ -121,11 +121,6 @@ void Mtu_Init()
       PDL_MTU2_PIN_0A_P34
       );
 
-   err &= R_MTU2_Set(
-      2,
-      PDL_MTU2_PIN_0A_P34
-      );
-
    createParameters.channel_mode = PDL_MTU2_MODE_NORMAL;
    createParameters.counter_operation = PDL_MTU2_CLK_PCLK_DIV_4 ;
    createParameters.TCNT_TCNTU_value = 0;
