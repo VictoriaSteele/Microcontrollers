@@ -9,11 +9,11 @@
 #include "ApplicationController.h"
 #include "Mtu.h"
 
-
 void main(void)
 {
    ApplicationController_Init();
 
    while(1)
-   {};
+   {
+   };
 }

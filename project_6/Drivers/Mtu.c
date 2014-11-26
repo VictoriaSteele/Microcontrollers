@@ -9,7 +9,7 @@
 #include "r_pdl_definitions.h"
 #include "Mtu.h"
 
-uint32_t Mtu_Read(void)
+uint32_t Mtu_Read()
 {
    bool err = true;
    uint32_t tcnt1 = 0;
@@ -43,11 +43,59 @@ uint32_t Mtu_Read(void)
    return ((tcnt1<<16) | tcnt2);
 }
 
-void Mtu_Init(void)
+
+void Mtu_Start()
+{
+   bool err = true;
+   R_MTU2_ControlChannel_structure controlParameters;
+
+   controlParameters.TCNT_TCNTU_value = 0;
+   controlParameters.control_setting = PDL_MTU2_START;
+
+   err &= R_MTU2_ControlChannel(
+      1,
+      &controlParameters
+      );
+
+   controlParameters.TCNT_TCNTU_value = 0;
+   controlParameters.control_setting = PDL_MTU2_START;
+
+   err &= R_MTU2_ControlChannel(
+      2,
+      &controlParameters
+      );
+
+   while(!err)
+      ;
+}
+
+void Mtu_Stop()
+{
+   bool err = true;
+   R_MTU2_ControlChannel_structure controlParameters;
+
+   controlParameters.control_setting = PDL_MTU2_STOP;
+
+   err &= R_MTU2_ControlChannel(
+      1,
+      &controlParameters
+      );
+
+   controlParameters.control_setting = PDL_MTU2_STOP;
+
+   err &= R_MTU2_ControlChannel(
+      2,
+      &controlParameters
+      );
+
+   while(!err)
+      ;
+}
+
+void Mtu_Init()
 {
    bool err = true;
    R_MTU2_Create_structure createParameters;
-   R_MTU2_ControlChannel_structure controlParameters;
 
    R_MTU2_Create_load_defaults(&createParameters);
 
@@ -59,21 +107,11 @@ void Mtu_Init(void)
    createParameters.channel_mode = PDL_MTU2_MODE_NORMAL;
    createParameters.counter_operation = PDL_MTU2_CLK_CASCADE ;
    createParameters.TCNT_TCNTU_value = 0;
-//   createParameters.TGRA_TCNTV_value = 0xFFFF;
    createParameters.interrupt_priority_1 = 7;
 
    err &= R_MTU2_Create(
       1,
       &createParameters
-      );
-
-   controlParameters.TCNT_TCNTU_value = 0;
-//   controlParameters.TGRA_TCNTV_value = 0xFFFF;
-   controlParameters.control_setting = PDL_MTU2_START;
-
-   err &= R_MTU2_ControlChannel(
-      1,
-      &controlParameters
       );
 
    R_MTU2_Create_load_defaults(&createParameters);
@@ -97,15 +135,6 @@ void Mtu_Init(void)
    err &= R_MTU2_Create(
       2,
       &createParameters
-      );
-
-   controlParameters.TCNT_TCNTU_value = 0;
-   controlParameters.TGRA_TCNTV_value = 0xFFFF;
-   controlParameters.control_setting = PDL_MTU2_START;
-
-   err &= R_MTU2_ControlChannel(
-      2,
-      &controlParameters
       );
 
    while(!err)

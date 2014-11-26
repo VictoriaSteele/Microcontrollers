@@ -30,19 +30,53 @@ static void U16ToString(uint8_t *outputString, uint8_t pos, uint16_t inputNumber
    }
 }
 
-static void UpdateLcd(void)
+static void CalculateAndDisplayFloat(void)
 {
-   static uint32_t count;
+   uint8_t lcdBuffer[10] = "00000000";
+   uint32_t count;
+   uint16_t index;
+
+   Mtu_Start();
+
+   for(index = 1; index < 1002; index++)
+   {
+      (void)((float)index * ((float)index + 1.0));
+   }
 
    count = Mtu_Read();
+   Mtu_Stop();
 
-   uint8_t lcdIntBuffer[10] = "00000000";
+   U16ToString(lcdBuffer, 4, (uint16_t)count);
+   U16ToString(lcdBuffer, 0, (uint16_t)(count >> 16));
+   Lcd_Display(LCD_LINE2_START_POS, lcdBuffer);
+}
 
-   U16ToString(lcdIntBuffer, 4, (uint16_t)count);
-   U16ToString(lcdIntBuffer, 0, (uint16_t)(count>>16));
+static void CalculateAndDisplayInt(void)
+{
+   uint8_t lcdBuffer[10] = "00000000";
+   uint32_t count;
+   uint16_t index;
 
-   Lcd_Display(LCD_LINE1_START_POS, lcdIntBuffer);
-//   Lcd_Display(LCD_LINE2_START_POS, "float");
+   Mtu_Start();
+
+   for(index = 1; index < 1002; index++)
+   {
+      (void)(index * (index + 1));
+   }
+
+   count = Mtu_Read();
+   Mtu_Stop();
+
+   U16ToString(lcdBuffer, 4, (uint16_t)count);
+   U16ToString(lcdBuffer, 0, (uint16_t)(count >> 16));
+
+   Lcd_Display(LCD_LINE1_START_POS, lcdBuffer);
+}
+
+static void UpdateLcd(void)
+{
+   CalculateAndDisplayInt();
+   CalculateAndDisplayFloat();
 }
 
 static void InitializePeriodicKeyCheck()

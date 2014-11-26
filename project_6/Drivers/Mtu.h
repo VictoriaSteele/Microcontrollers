@@ -10,5 +10,7 @@
 
 void Mtu_Init(void);
 uint32_t Mtu_Read(void);
+void Mtu_Start(void);
+void Mtu_Stop(void);
 
 #endif
