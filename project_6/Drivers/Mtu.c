@@ -12,13 +12,13 @@
 uint32_t Mtu_Read(void)
 {
    bool err = true;
-   uint16_t tcnt1;
-   uint16_t tcnt2;
+   uint32_t tcnt1 = 0;
+   uint32_t tcnt2 = 0;
 
    err &= R_MTU2_ReadChannel(
       1,
       PDL_NO_PTR,
-      &tcnt1,
+      (uint16_t *)&tcnt1,
       PDL_NO_PTR,
       PDL_NO_PTR,
       PDL_NO_PTR,
@@ -29,7 +29,7 @@ uint32_t Mtu_Read(void)
    err &= R_MTU2_ReadChannel(
       2,
       PDL_NO_PTR,
-      &tcnt2,
+      (uint16_t *)&tcnt2,
       PDL_NO_PTR,
       PDL_NO_PTR,
       PDL_NO_PTR,
@@ -40,7 +40,7 @@ uint32_t Mtu_Read(void)
    while(!err)
       ;
 
-   return ((uint32_t)(tcnt1<<4)| tcnt2);
+   return ((tcnt1<<16) | tcnt2);
 }
 
 void Mtu_Init(void)
@@ -59,7 +59,7 @@ void Mtu_Init(void)
    createParameters.channel_mode = PDL_MTU2_MODE_NORMAL;
    createParameters.counter_operation = PDL_MTU2_CLK_CASCADE ;
    createParameters.TCNT_TCNTU_value = 0;
-   createParameters.TGRA_TCNTV_value = 0xFFFF;
+//   createParameters.TGRA_TCNTV_value = 0xFFFF;
    createParameters.interrupt_priority_1 = 7;
 
    err &= R_MTU2_Create(
@@ -68,7 +68,7 @@ void Mtu_Init(void)
       );
 
    controlParameters.TCNT_TCNTU_value = 0;
-   controlParameters.TGRA_TCNTV_value = 0xFFFF;
+//   controlParameters.TGRA_TCNTV_value = 0xFFFF;
    controlParameters.control_setting = PDL_MTU2_START;
 
    err &= R_MTU2_ControlChannel(
